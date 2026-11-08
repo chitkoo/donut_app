@@ -44,6 +44,10 @@ dependencies:
   flutter_secure_storage: ^11.2.0
   freezed_annotation: ^3.1.0
   connectivity_plus: ^7.3.2
+  flutter_svg: ^2.3.2
+  go_transitions: ^0.8.4
+  hooks_riverpod: ^3.5.0
+  flutter_hooks: ^0.21.4
 
 dev_dependencies:
   flutter_test:
@@ -71,8 +75,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
+    - assets/icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -97,6 +102,28 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  fonts:
+    - family: Barlow
+      fonts:
+        - asset: assets/fonts/barlow/Barlow-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/barlow/Barlow-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/barlow/Barlow-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/barlow/Barlow-Bold.ttf
+          weight: 700
+
+    - family: DMSans
+      fonts:
+        - asset: assets/fonts/dm_sans/DMSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/dm_sans/DMSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/dm_sans/DMSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/dm_sans/DMSans-Bold.ttf
+          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
