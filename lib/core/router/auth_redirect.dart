@@ -15,7 +15,14 @@ String? authRedirect({
   };
 
   final isSplash = location == AppRoutePaths.splash;
-  final isDashboard = location == AppRoutePaths.dashboard;
+  // final isDashboard = location == AppRoutePaths.dashboard;
+  // final isDashboard = location.startsWith(AppRoutePaths.dashboard);
+  final isDashboard = {
+    AppRoutePaths.home,
+    AppRoutePaths.reward,
+    AppRoutePaths.setting,
+  }.contains(location);
+
   final isGuestRoute = guestRoutes.contains(location);
 
   // Wait for session restoration.
@@ -29,7 +36,7 @@ String? authRedirect({
   if (isAuthenticated) {
     // Authenticated users should not revisit registration.
     if (isSplash || isGuestRoute) {
-      return AppRoutePaths.dashboard;
+      return AppRoutePaths.home;
     }
 
     return null;

@@ -4,8 +4,12 @@ import 'app_typography.dart';
 
 abstract final class AppColors {
   static const onboardingScaffoldBackground = Color(0xFFFCEAF1);
+  static const dashboardScaffoldBg = Color(0xFFEEF0F1);
+  static const homeHeaderBg = Color(0xFFFFECDC);
+  static const labelBg = Color(0xFFFA7C1F);
   static const button = Color(0xFF5ACFEC);
   static const progress = Color(0xFFF25AA0);
+  static const purple = Color(0xFF5E5AA7);
 
   static const text = Colors.black;
   static const white = Colors.white;

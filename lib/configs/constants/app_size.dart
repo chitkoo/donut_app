@@ -6,7 +6,7 @@ const double appButtonPaddingX = 20.00;
 const double appButtonPaddingY = 12.00;
 
 const double appBorderRadius = 8.00;
-const double globalHorizontalMargin = 15.00;
+const double globalHorizontalMargin = 20.00;
 const double globalVerticalMargin = 15.00;
 
 const double _tiny = 4.0;

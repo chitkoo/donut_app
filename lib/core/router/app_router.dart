@@ -45,11 +45,14 @@
 //   ],
 // );
 
+import 'package:donut_app/features/dashboard/presentation/view/home_page.dart';
+import 'package:donut_app/features/dashboard/presentation/view/reward_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/notifier/auth_session_provider.dart';
-import '../../features/dashboard/presentation/view/dashboard_page.dart';
+import '../../features/dashboard/presentation/dashboard_scaffold.dart';
+import '../../features/dashboard/presentation/view/settings_page.dart' show SettingsPage;
 import '../../features/onboarding/presentation/view/login_page.dart';
 import '../../features/onboarding/presentation/view/onboarding_page.dart';
 import '../../features/onboarding/presentation/view/otp_page.dart';
@@ -105,10 +108,44 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: AppRouteNames.birthday,
         builder: (context, state) => const UserBirthdayPage(),
       ),
-      GoRoute(
-        path: AppRoutePaths.dashboard,
-        name: AppRouteNames.dashboard,
-        builder: (context, state) => const DashboardPage(),
+      // GoRoute(
+      //   path: AppRoutePaths.dashboard,
+      //   name: AppRouteNames.dashboard,
+      //   builder: (context, state) => const DashboardPage(),
+      // ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return DashboardScaffold(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutePaths.home,
+                name: AppRouteNames.home,
+                builder: (context, state) => const HomePage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutePaths.reward,
+                name: AppRouteNames.reward,
+                builder: (context, state) => const RewardPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutePaths.setting,
+                name: AppRouteNames.setting,
+                builder: (context, state) => const SettingsPage(),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
   );
