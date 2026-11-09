@@ -1,3 +1,4 @@
+import 'package:donut_app/features/onboarding/presentation/view/widgets/onboard_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +9,7 @@ import '../../../../core/router/app_routes.dart';
 import '../../../../shared/widgets/donut_app_button.dart';
 import '../../../../shared/widgets/donut_app_scaffold.dart';
 import '../../../../shared/widgets/error_text.dart';
+import '../../../../utils/enums/auth_step.dart';
 import '../../../../utils/extensions/context_x.dart';
 import '../notifiers/auth_notifier.dart';
 import 'widgets/onboard_back_button.dart';
@@ -31,8 +33,12 @@ class UsernamePage extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: .spaceBetween,
                 children: [
-                  OnboardBackButton(),
-                  //  CircularProgressIndicator()
+                  OnboardBackButton(
+                    onBackInvoked: () {
+                      ref.read(authProvider.notifier).updateAuthStep(.otp);
+                    },
+                  ),
+                  AuthStepProgress(),
                 ],
               ),
               veryLargeVerticalSpace,
@@ -79,10 +85,11 @@ class UsernamePage extends HookConsumerWidget {
             width: double.infinity,
             text: "continue",
             enabled: ref.watch(
-              authProvider.select((state) => state.firstName.isNotEmpty),
+              authProvider.select((state) => state.firstName.trim().isNotEmpty),
             ),
             onPressed: () {
               context.pushNamed(AppRoutes.birthday);
+              ref.read(authProvider.notifier).updateAuthStep(AuthStep.birthday);
             },
           ),
         ],

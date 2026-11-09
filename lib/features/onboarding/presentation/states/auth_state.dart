@@ -1,10 +1,10 @@
-import 'package:donut_app/features/onboarding/domain/entities/user.dart';
-import 'package:donut_app/utils/enums/status_enum.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'auth_state.freezed.dart';
+import '../../../../utils/enums/auth_step.dart';
+import '../../../../utils/enums/status_enum.dart';
+import '../../domain/entities/user.dart';
 
-enum AuthStep { phone, otp, profile, birthday, completed }
+part 'auth_state.freezed.dart';
 
 @freezed
 abstract class AuthState with _$AuthState {
@@ -24,9 +24,10 @@ abstract class AuthState with _$AuthState {
 
     @Default(RequestStatus.initial) RequestStatus loginStatus,
 
-
     User? authUser,
     DateTime? dateOfBirth,
+    @Default('') String dobErrorMsg,
+    @Default(true) bool isDobValid,
 
     @Default(AuthStep.phone) AuthStep currentStep,
 

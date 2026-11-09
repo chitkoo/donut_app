@@ -12,6 +12,7 @@ import '../../../../utils/enums/status_enum.dart';
 import '../../../../utils/extensions/context_x.dart';
 import '../notifiers/auth_notifier.dart';
 import 'widgets/onboard_back_button.dart';
+import 'widgets/onboard_progress.dart';
 import 'widgets/phone_input.dart';
 import 'widgets/terms_and_condition_text.dart';
 
@@ -31,8 +32,12 @@ class LoginPage extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: .spaceBetween,
                 children: [
-                  OnboardBackButton(),
-                  //  CircularProgressIndicator()
+                  OnboardBackButton(
+                    // onBackInvoked: () {
+                    //   ref.read(authProvider.notifier).updateAuthStep(.phone);
+                    // },
+                  ),
+                  AuthStepProgress(),
                 ],
               ),
               veryLargeVerticalSpace,
@@ -90,11 +95,12 @@ class LoginPage extends HookConsumerWidget {
                   ) ==
                   RequestStatus.loading;
 
-              ref.listen(authProvider, (prev, next) {
-                if (next.isPhoneChecking == RequestStatus.success) {
-                  context.pushNamed(AppRoutes.otp);
-                }
-              });
+              // ref.listen(authProvider, (prev, next) {
+              //   if (next.isPhoneChecking == RequestStatus.success) {
+              //     context.pushNamed(AppRoutes.otp);
+              //     // ref.read(authProvider.notifier).updateAuthStep(AuthStep.otp);
+              //   }
+              // });
 
               return DonutAppButton(
                 isLoading: isLoading,
@@ -103,7 +109,13 @@ class LoginPage extends HookConsumerWidget {
                 text: "continue",
                 onPressed: () {
                   if (ref.read(authProvider.notifier).checkPhoneValid()) {
-                    ref.read(authProvider.notifier).continueWithPhoneNumber();
+                    ref
+                        .read(authProvider.notifier)
+                        .continueWithPhoneNumber(
+                          onSuccess: () {
+                            context.pushNamed(AppRoutes.otp);
+                          },
+                        );
                   }
                 },
               );

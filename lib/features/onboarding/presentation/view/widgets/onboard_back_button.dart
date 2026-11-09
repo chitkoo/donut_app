@@ -7,9 +7,11 @@ class OnboardBackButton extends StatelessWidget {
     this.onPressed,
     this.size = 12,
     this.borderRadius = 10,
+    this.onBackInvoked,
   });
 
   final VoidCallback? onPressed;
+  final VoidCallback? onBackInvoked;
   final double size;
   final double borderRadius;
 
@@ -21,6 +23,7 @@ class OnboardBackButton extends StatelessWidget {
           () {
             if (context.canPop()) {
               context.pop();
+              onBackInvoked?.call();
             }
           },
       style: IconButton.styleFrom(

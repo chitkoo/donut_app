@@ -1,4 +1,3 @@
-import 'package:donut_app/utils/enums/status_enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,11 +7,14 @@ import '../../../../configs/constants/app_size.dart';
 import '../../../../core/router/app_routes.dart';
 import '../../../../shared/widgets/donut_app_button.dart';
 import '../../../../shared/widgets/donut_app_scaffold.dart';
+import '../../../../shared/widgets/error_text.dart';
+import '../../../../utils/enums/status_enum.dart';
 import '../../../../utils/extensions/context_x.dart';
 import '../../../../utils/helpers/helpers.dart';
 import '../notifiers/auth_notifier.dart';
 import 'widgets/date_input.dart';
 import 'widgets/onboard_back_button.dart';
+import 'widgets/onboard_progress.dart';
 import 'widgets/terms_and_condition_text.dart';
 
 class UserBirthdayPage extends ConsumerWidget {
@@ -21,6 +23,13 @@ class UserBirthdayPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dob = ref.watch(authProvider.select((state) => state.dateOfBirth));
+    final isAgeValid = ref.watch(
+      authProvider.select((state) => state.isDobValid),
+    );
+
+    final dobErrorMsg = ref.watch(
+      authProvider.select((state) => state.dobErrorMsg),
+    );
 
     return DonutAppScaffold(
       body: Column(
@@ -31,8 +40,12 @@ class UserBirthdayPage extends ConsumerWidget {
               Row(
                 mainAxisAlignment: .spaceBetween,
                 children: [
-                  OnboardBackButton(),
-                  //  CircularProgressIndicator()
+                  OnboardBackButton(
+                    onBackInvoked: () {
+                      ref.read(authProvider.notifier).updateAuthStep(.profile);
+                    },
+                  ),
+                  AuthStepProgress(),
                 ],
               ),
               veryLargeVerticalSpace,
@@ -73,6 +86,8 @@ class UserBirthdayPage extends ConsumerWidget {
                 },
                 placeholderText: "Year",
               ),
+              largeVerticalSpace,
+              if (!isAgeValid) ErrorText(dobErrorMsg),
             ],
           ),
           Consumer(
@@ -83,19 +98,31 @@ class UserBirthdayPage extends ConsumerWidget {
                   ) ==
                   RequestStatus.loading;
 
-              ref.listen(authProvider, (prev, next) {
-                if (next.loginStatus == RequestStatus.success) {
-                  context.goNamed(AppRoutes.dashboard);
-                }
-              });
+              final isDOBNotEmpty = ref.watch(
+                authProvider.select((state) => state.dateOfBirth != null),
+              );
+
+              // ref.listen(authProvider, (prev, next) {
+              //   if (next.loginStatus == RequestStatus.success) {
+              //     context.goNamed(AppRoutes.dashboard);
+              //   }
+              // });
 
               return DonutAppButton(
+                enabled: isAgeValid && isDOBNotEmpty,
                 isLoading: isLoading,
                 width: double.infinity,
                 text: "continue",
                 onPressed: () {
-                  ref.read(authProvider.notifier).createUserAndLogin();
-                  // context.pushNamed(AppRoutes.birthday);
+                  if (isDOBNotEmpty) {
+                    ref
+                        .read(authProvider.notifier)
+                        .createUserAndLogin(
+                          onSuccess: () {
+                            context.goNamed(AppRoutes.dashboard);
+                          },
+                        );
+                  }
                 },
               );
             },

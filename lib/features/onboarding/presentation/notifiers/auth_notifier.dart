@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:donut_app/utils/enums/auth_step.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
@@ -8,6 +10,7 @@ import '../../../../utils/app_logger.dart';
 import '../../data/repository/user_repository.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repository/user_repository_impl.dart';
+import '../../domain/validators/age_validator.dart';
 import '../../domain/validators/phonenumber_validator.dart';
 import '../states/auth_state.dart';
 
@@ -51,7 +54,9 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   /// [Check Phone Number]
-  Future<void> continueWithPhoneNumber() async {
+  Future<void> continueWithPhoneNumber({
+    required VoidCallback onSuccess,
+  }) async {
     state = state.copyWith(isPhoneChecking: .loading);
 
     try {
@@ -66,15 +71,19 @@ class AuthNotifier extends Notifier<AuthState> {
       } else {
         state = state.copyWith(isPhoneChecking: .success);
       }
+      onSuccess.call();
+      updateAuthStep(AuthStep.otp);
     } catch (e) {
       state = state.copyWith(errorMessage: e.toString());
     } finally {
-      state = state.copyWith(isPhoneChecking: .initial);
+      // state = state.copyWith(isPhoneChecking: .initial);
     }
   }
 
   /// [Login]
-  Future<void> createUserAndLogin() async {
+  Future<void> createUserAndLogin({
+    required VoidCallback onSuccess,
+  }) async {
     state = state.copyWith(loginStatus: .loading);
 
     try {
@@ -92,16 +101,19 @@ class AuthNotifier extends Notifier<AuthState> {
       _logger.i(user.toString());
 
       state = state.copyWith(authUser: user, loginStatus: .success);
+      onSuccess.call();
     } catch (e) {
       state = state.copyWith(errorMessage: e.toString(), loginStatus: .fail);
     } finally {
-      state = state.copyWith(loginStatus: .initial);
+      // state = state.copyWith(loginStatus: .initial);
     }
   }
 
   Future<bool> checkOTP(String otp) async {
     state = state.copyWith(
       isLoading: true,
+      firstName: "",
+      lastName: "",
       // otpErrorMsg: '',
       // isOTPValid: false,
     );
@@ -191,8 +203,20 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   void onBirthDateChanged(DateTime value) {
-    state = state.copyWith(dateOfBirth: value);
+    final isAgeValid = AgeValidator.isValidDateOfBirth(value);
+
+    if (isAgeValid) {
+      state = state.copyWith(dateOfBirth: value, isDobValid: true);
+    } else {
+      state = state.copyWith(
+        dateOfBirth: null,
+        dobErrorMsg: "Age must be at least 13 years old!",
+        isDobValid: false,
+      );
+    }
   }
 
-  void updateAuthStep(String value) {}
+  void updateAuthStep(AuthStep value) {
+    state = state.copyWith(currentStep: value);
+  }
 }

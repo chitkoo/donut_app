@@ -12,9 +12,11 @@ import '../../../../configs/theme/app_theme.dart';
 import '../../../../core/router/app_routes.dart';
 import '../../../../shared/widgets/donut_app_scaffold.dart';
 import '../../../../shared/widgets/error_text.dart';
+import '../../../../utils/enums/auth_step.dart';
 import '../../../../utils/extensions/context_x.dart';
 import '../notifiers/auth_notifier.dart';
 import 'widgets/onboard_back_button.dart';
+import 'widgets/onboard_progress.dart';
 import 'widgets/terms_and_condition_text.dart';
 
 class OtpPage extends HookConsumerWidget {
@@ -63,8 +65,12 @@ class OtpPage extends HookConsumerWidget {
           Row(
             mainAxisAlignment: .spaceBetween,
             children: [
-              OnboardBackButton(),
-              //  CircularProgressIndicator()
+              OnboardBackButton(
+                onBackInvoked: () {
+                  ref.read(authProvider.notifier).updateAuthStep(.phone);
+                },
+              ),
+              AuthStepProgress(),
             ],
           ),
           veryLargeVerticalSpace,
@@ -139,7 +145,16 @@ class OtpPage extends HookConsumerWidget {
 
                     if (isValid) {
                       pinController.clear();
-                      context.pushNamed(AppRoutes.username);
+                      final authUser = ref.read(authProvider).authUser;
+
+                      if (authUser != null) {
+                        context.goNamed(AppRoutes.dashboard);
+                      } else {
+                        context.pushNamed(AppRoutes.username);
+                        ref
+                            .read(authProvider.notifier)
+                            .updateAuthStep(AuthStep.profile);
+                      }
                     } else {
                       shakeController.forward(from: 0);
                       pinController.clear();

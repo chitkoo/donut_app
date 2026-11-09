@@ -16,6 +16,8 @@ class User {
   final DateTime dateOfBirth;
   final DateTime? createdAt;
 
+  String get fullName => '$firstName $lastName';
+
   @override
   String toString() {
     return 'User(id: $id, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, dateOfBirth: $dateOfBirth, createdAt: $createdAt)';
