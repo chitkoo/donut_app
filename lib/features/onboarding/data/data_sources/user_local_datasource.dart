@@ -8,7 +8,9 @@ import '../../domain/entities/user.dart';
 abstract interface class UserLocalDataSource {
   Future<UserRow?> createUser(User user);
 
-  Future<UserRow?> getUserByPhoneNumber(String phoneNumber);
+  Future<UserRow?> queryUserByPhoneNumber(String phoneNumber);
+
+  Future<UserRow?> queryUserById(int id);
 
   Future<UserRow?> getUser();
 
@@ -23,10 +25,17 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   final AppDatabase _database;
 
   @override
-  Future<UserRow?> getUserByPhoneNumber(String phoneNumber) {
+  Future<UserRow?> queryUserByPhoneNumber(String phoneNumber) {
     return (_database.select(_database.users)
           ..where((table) => table.phoneNumber.equals(phoneNumber)))
         .getSingleOrNull();
+  }
+
+  @override
+  Future<UserRow?> queryUserById(int id) {
+    return (_database.select(
+      _database.users,
+    )..where((table) => table.id.equals(id))).getSingleOrNull();
   }
 
   @override

@@ -145,9 +145,9 @@ class OtpPage extends HookConsumerWidget {
 
                     if (isValid) {
                       pinController.clear();
-                      final authUser = ref.read(authProvider).authUser;
+                      final user = ref.read(authProvider).user;
 
-                      if (authUser != null) {
+                      if (user != null) {
                         context.goNamed(AppRoutes.dashboard);
                       } else {
                         context.pushNamed(AppRoutes.username);

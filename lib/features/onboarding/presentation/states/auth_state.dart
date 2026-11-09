@@ -24,7 +24,7 @@ abstract class AuthState with _$AuthState {
 
     @Default(RequestStatus.initial) RequestStatus loginStatus,
 
-    User? authUser,
+    User? user,
     DateTime? dateOfBirth,
     @Default('') String dobErrorMsg,
     @Default(true) bool isDobValid,

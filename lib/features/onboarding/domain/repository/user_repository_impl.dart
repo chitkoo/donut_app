@@ -34,7 +34,23 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<User?> getUserByPhoneNumber(String phoneNumber) async {
-    final row = await _localDataSource.getUserByPhoneNumber(phoneNumber);
+    final row = await _localDataSource.queryUserByPhoneNumber(phoneNumber);
+
+    if (row == null) return null;
+
+    return User(
+      id: row.id,
+      firstName: row.firstName,
+      lastName: row.lastName,
+      phoneNumber: row.phoneNumber,
+      dateOfBirth: row.dateOfBirth,
+      createdAt: row.createdAt,
+    );
+  }
+
+  @override
+  Future<User?> getUserById(int id) async {
+    final row = await _localDataSource.queryUserById(id);
 
     if (row == null) return null;
 

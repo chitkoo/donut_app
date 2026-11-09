@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthState {
 
- String get firstName; String get lastName; String get phoneNumber; String get phoneNumberErrorMsg; bool get isPhoneValid; RequestStatus get isPhoneChecking; int get otpChanceLeft; int get resendCountdown; bool get isResendingOTP; bool get isOTPChecking; RequestStatus get loginStatus; User? get authUser; DateTime? get dateOfBirth; String get dobErrorMsg; bool get isDobValid; AuthStep get currentStep; bool get isLoading; String? get errorMessage;
+ String get firstName; String get lastName; String get phoneNumber; String get phoneNumberErrorMsg; bool get isPhoneValid; RequestStatus get isPhoneChecking; int get otpChanceLeft; int get resendCountdown; bool get isResendingOTP; bool get isOTPChecking; RequestStatus get loginStatus; User? get user; DateTime? get dateOfBirth; String get dobErrorMsg; bool get isDobValid; AuthStep get currentStep; bool get isLoading; String? get errorMessage;
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $AuthStateCopyWith<AuthState> get copyWith => _$AuthStateCopyWithImpl<AuthState>
 @override
 bool operator ==(Object other) {
   final _this = this as AuthState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthState&&(identical(other.firstName, _this.firstName) || other.firstName == _this.firstName)&&(identical(other.lastName, _this.lastName) || other.lastName == _this.lastName)&&(identical(other.phoneNumber, _this.phoneNumber) || other.phoneNumber == _this.phoneNumber)&&(identical(other.phoneNumberErrorMsg, _this.phoneNumberErrorMsg) || other.phoneNumberErrorMsg == _this.phoneNumberErrorMsg)&&(identical(other.isPhoneValid, _this.isPhoneValid) || other.isPhoneValid == _this.isPhoneValid)&&(identical(other.isPhoneChecking, _this.isPhoneChecking) || other.isPhoneChecking == _this.isPhoneChecking)&&(identical(other.otpChanceLeft, _this.otpChanceLeft) || other.otpChanceLeft == _this.otpChanceLeft)&&(identical(other.resendCountdown, _this.resendCountdown) || other.resendCountdown == _this.resendCountdown)&&(identical(other.isResendingOTP, _this.isResendingOTP) || other.isResendingOTP == _this.isResendingOTP)&&(identical(other.isOTPChecking, _this.isOTPChecking) || other.isOTPChecking == _this.isOTPChecking)&&(identical(other.loginStatus, _this.loginStatus) || other.loginStatus == _this.loginStatus)&&(identical(other.authUser, _this.authUser) || other.authUser == _this.authUser)&&(identical(other.dateOfBirth, _this.dateOfBirth) || other.dateOfBirth == _this.dateOfBirth)&&(identical(other.dobErrorMsg, _this.dobErrorMsg) || other.dobErrorMsg == _this.dobErrorMsg)&&(identical(other.isDobValid, _this.isDobValid) || other.isDobValid == _this.isDobValid)&&(identical(other.currentStep, _this.currentStep) || other.currentStep == _this.currentStep)&&(identical(other.isLoading, _this.isLoading) || other.isLoading == _this.isLoading)&&(identical(other.errorMessage, _this.errorMessage) || other.errorMessage == _this.errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthState&&(identical(other.firstName, _this.firstName) || other.firstName == _this.firstName)&&(identical(other.lastName, _this.lastName) || other.lastName == _this.lastName)&&(identical(other.phoneNumber, _this.phoneNumber) || other.phoneNumber == _this.phoneNumber)&&(identical(other.phoneNumberErrorMsg, _this.phoneNumberErrorMsg) || other.phoneNumberErrorMsg == _this.phoneNumberErrorMsg)&&(identical(other.isPhoneValid, _this.isPhoneValid) || other.isPhoneValid == _this.isPhoneValid)&&(identical(other.isPhoneChecking, _this.isPhoneChecking) || other.isPhoneChecking == _this.isPhoneChecking)&&(identical(other.otpChanceLeft, _this.otpChanceLeft) || other.otpChanceLeft == _this.otpChanceLeft)&&(identical(other.resendCountdown, _this.resendCountdown) || other.resendCountdown == _this.resendCountdown)&&(identical(other.isResendingOTP, _this.isResendingOTP) || other.isResendingOTP == _this.isResendingOTP)&&(identical(other.isOTPChecking, _this.isOTPChecking) || other.isOTPChecking == _this.isOTPChecking)&&(identical(other.loginStatus, _this.loginStatus) || other.loginStatus == _this.loginStatus)&&(identical(other.user, _this.user) || other.user == _this.user)&&(identical(other.dateOfBirth, _this.dateOfBirth) || other.dateOfBirth == _this.dateOfBirth)&&(identical(other.dobErrorMsg, _this.dobErrorMsg) || other.dobErrorMsg == _this.dobErrorMsg)&&(identical(other.isDobValid, _this.isDobValid) || other.isDobValid == _this.isDobValid)&&(identical(other.currentStep, _this.currentStep) || other.currentStep == _this.currentStep)&&(identical(other.isLoading, _this.isLoading) || other.isLoading == _this.isLoading)&&(identical(other.errorMessage, _this.errorMessage) || other.errorMessage == _this.errorMessage));
 }
 
 
 @override
 int get hashCode {
   final _this = this as AuthState;
-  return Object.hash(runtimeType,_this.firstName,_this.lastName,_this.phoneNumber,_this.phoneNumberErrorMsg,_this.isPhoneValid,_this.isPhoneChecking,_this.otpChanceLeft,_this.resendCountdown,_this.isResendingOTP,_this.isOTPChecking,_this.loginStatus,_this.authUser,_this.dateOfBirth,_this.dobErrorMsg,_this.isDobValid,_this.currentStep,_this.isLoading,_this.errorMessage);
+  return Object.hash(runtimeType,_this.firstName,_this.lastName,_this.phoneNumber,_this.phoneNumberErrorMsg,_this.isPhoneValid,_this.isPhoneChecking,_this.otpChanceLeft,_this.resendCountdown,_this.isResendingOTP,_this.isOTPChecking,_this.loginStatus,_this.user,_this.dateOfBirth,_this.dobErrorMsg,_this.isDobValid,_this.currentStep,_this.isLoading,_this.errorMessage);
 }
 
 @override
 String toString() {
   final _this = this as AuthState;
-  return 'AuthState(firstName: ${_this.firstName}, lastName: ${_this.lastName}, phoneNumber: ${_this.phoneNumber}, phoneNumberErrorMsg: ${_this.phoneNumberErrorMsg}, isPhoneValid: ${_this.isPhoneValid}, isPhoneChecking: ${_this.isPhoneChecking}, otpChanceLeft: ${_this.otpChanceLeft}, resendCountdown: ${_this.resendCountdown}, isResendingOTP: ${_this.isResendingOTP}, isOTPChecking: ${_this.isOTPChecking}, loginStatus: ${_this.loginStatus}, authUser: ${_this.authUser}, dateOfBirth: ${_this.dateOfBirth}, dobErrorMsg: ${_this.dobErrorMsg}, isDobValid: ${_this.isDobValid}, currentStep: ${_this.currentStep}, isLoading: ${_this.isLoading}, errorMessage: ${_this.errorMessage})';
+  return 'AuthState(firstName: ${_this.firstName}, lastName: ${_this.lastName}, phoneNumber: ${_this.phoneNumber}, phoneNumberErrorMsg: ${_this.phoneNumberErrorMsg}, isPhoneValid: ${_this.isPhoneValid}, isPhoneChecking: ${_this.isPhoneChecking}, otpChanceLeft: ${_this.otpChanceLeft}, resendCountdown: ${_this.resendCountdown}, isResendingOTP: ${_this.isResendingOTP}, isOTPChecking: ${_this.isOTPChecking}, loginStatus: ${_this.loginStatus}, user: ${_this.user}, dateOfBirth: ${_this.dateOfBirth}, dobErrorMsg: ${_this.dobErrorMsg}, isDobValid: ${_this.isDobValid}, currentStep: ${_this.currentStep}, isLoading: ${_this.isLoading}, errorMessage: ${_this.errorMessage})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $AuthStateCopyWith<$Res>  {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) _then) = _$AuthStateCopyWithImpl;
 @useResult
 $Res call({
- String firstName, String lastName, String phoneNumber, String phoneNumberErrorMsg, bool isPhoneValid, RequestStatus isPhoneChecking, int otpChanceLeft, int resendCountdown, bool isResendingOTP, bool isOTPChecking, RequestStatus loginStatus, User? authUser, DateTime? dateOfBirth, String dobErrorMsg, bool isDobValid, AuthStep currentStep, bool isLoading, String? errorMessage
+ String firstName, String lastName, String phoneNumber, String phoneNumberErrorMsg, bool isPhoneValid, RequestStatus isPhoneChecking, int otpChanceLeft, int resendCountdown, bool isResendingOTP, bool isOTPChecking, RequestStatus loginStatus, User? user, DateTime? dateOfBirth, String dobErrorMsg, bool isDobValid, AuthStep currentStep, bool isLoading, String? errorMessage
 });
 
 
@@ -68,7 +68,7 @@ class _$AuthStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? firstName = null,Object? lastName = null,Object? phoneNumber = null,Object? phoneNumberErrorMsg = null,Object? isPhoneValid = null,Object? isPhoneChecking = null,Object? otpChanceLeft = null,Object? resendCountdown = null,Object? isResendingOTP = null,Object? isOTPChecking = null,Object? loginStatus = null,Object? authUser = freezed,Object? dateOfBirth = freezed,Object? dobErrorMsg = null,Object? isDobValid = null,Object? currentStep = null,Object? isLoading = null,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? firstName = null,Object? lastName = null,Object? phoneNumber = null,Object? phoneNumberErrorMsg = null,Object? isPhoneValid = null,Object? isPhoneChecking = null,Object? otpChanceLeft = null,Object? resendCountdown = null,Object? isResendingOTP = null,Object? isOTPChecking = null,Object? loginStatus = null,Object? user = freezed,Object? dateOfBirth = freezed,Object? dobErrorMsg = null,Object? isDobValid = null,Object? currentStep = null,Object? isLoading = null,Object? errorMessage = freezed,}) {
   return _then(AuthState(
 firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
 as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ as int,resendCountdown: null == resendCountdown ? _self.resendCountdown : resend
 as int,isResendingOTP: null == isResendingOTP ? _self.isResendingOTP : isResendingOTP // ignore: cast_nullable_to_non_nullable
 as bool,isOTPChecking: null == isOTPChecking ? _self.isOTPChecking : isOTPChecking // ignore: cast_nullable_to_non_nullable
 as bool,loginStatus: null == loginStatus ? _self.loginStatus : loginStatus // ignore: cast_nullable_to_non_nullable
-as RequestStatus,authUser: freezed == authUser ? _self.authUser : authUser // ignore: cast_nullable_to_non_nullable
+as RequestStatus,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as DateTime?,dobErrorMsg: null == dobErrorMsg ? _self.dobErrorMsg : dobErrorMsg // ignore: cast_nullable_to_non_nullable
 as String,isDobValid: null == isDobValid ? _self.isDobValid : isDobValid // ignore: cast_nullable_to_non_nullable
@@ -173,10 +173,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String phoneNumber,  String phoneNumberErrorMsg,  bool isPhoneValid,  RequestStatus isPhoneChecking,  int otpChanceLeft,  int resendCountdown,  bool isResendingOTP,  bool isOTPChecking,  RequestStatus loginStatus,  User? authUser,  DateTime? dateOfBirth,  String dobErrorMsg,  bool isDobValid,  AuthStep currentStep,  bool isLoading,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String phoneNumber,  String phoneNumberErrorMsg,  bool isPhoneValid,  RequestStatus isPhoneChecking,  int otpChanceLeft,  int resendCountdown,  bool isResendingOTP,  bool isOTPChecking,  RequestStatus loginStatus,  User? user,  DateTime? dateOfBirth,  String dobErrorMsg,  bool isDobValid,  AuthStep currentStep,  bool isLoading,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthState() when $default != null:
-return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumberErrorMsg,_that.isPhoneValid,_that.isPhoneChecking,_that.otpChanceLeft,_that.resendCountdown,_that.isResendingOTP,_that.isOTPChecking,_that.loginStatus,_that.authUser,_that.dateOfBirth,_that.dobErrorMsg,_that.isDobValid,_that.currentStep,_that.isLoading,_that.errorMessage);case _:
+return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumberErrorMsg,_that.isPhoneValid,_that.isPhoneChecking,_that.otpChanceLeft,_that.resendCountdown,_that.isResendingOTP,_that.isOTPChecking,_that.loginStatus,_that.user,_that.dateOfBirth,_that.dobErrorMsg,_that.isDobValid,_that.currentStep,_that.isLoading,_that.errorMessage);case _:
   return orElse();
 
 }
@@ -194,10 +194,10 @@ return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumb
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String phoneNumber,  String phoneNumberErrorMsg,  bool isPhoneValid,  RequestStatus isPhoneChecking,  int otpChanceLeft,  int resendCountdown,  bool isResendingOTP,  bool isOTPChecking,  RequestStatus loginStatus,  User? authUser,  DateTime? dateOfBirth,  String dobErrorMsg,  bool isDobValid,  AuthStep currentStep,  bool isLoading,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String phoneNumber,  String phoneNumberErrorMsg,  bool isPhoneValid,  RequestStatus isPhoneChecking,  int otpChanceLeft,  int resendCountdown,  bool isResendingOTP,  bool isOTPChecking,  RequestStatus loginStatus,  User? user,  DateTime? dateOfBirth,  String dobErrorMsg,  bool isDobValid,  AuthStep currentStep,  bool isLoading,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _AuthState():
-return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumberErrorMsg,_that.isPhoneValid,_that.isPhoneChecking,_that.otpChanceLeft,_that.resendCountdown,_that.isResendingOTP,_that.isOTPChecking,_that.loginStatus,_that.authUser,_that.dateOfBirth,_that.dobErrorMsg,_that.isDobValid,_that.currentStep,_that.isLoading,_that.errorMessage);case _:
+return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumberErrorMsg,_that.isPhoneValid,_that.isPhoneChecking,_that.otpChanceLeft,_that.resendCountdown,_that.isResendingOTP,_that.isOTPChecking,_that.loginStatus,_that.user,_that.dateOfBirth,_that.dobErrorMsg,_that.isDobValid,_that.currentStep,_that.isLoading,_that.errorMessage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -214,10 +214,10 @@ return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumb
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String firstName,  String lastName,  String phoneNumber,  String phoneNumberErrorMsg,  bool isPhoneValid,  RequestStatus isPhoneChecking,  int otpChanceLeft,  int resendCountdown,  bool isResendingOTP,  bool isOTPChecking,  RequestStatus loginStatus,  User? authUser,  DateTime? dateOfBirth,  String dobErrorMsg,  bool isDobValid,  AuthStep currentStep,  bool isLoading,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String firstName,  String lastName,  String phoneNumber,  String phoneNumberErrorMsg,  bool isPhoneValid,  RequestStatus isPhoneChecking,  int otpChanceLeft,  int resendCountdown,  bool isResendingOTP,  bool isOTPChecking,  RequestStatus loginStatus,  User? user,  DateTime? dateOfBirth,  String dobErrorMsg,  bool isDobValid,  AuthStep currentStep,  bool isLoading,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthState() when $default != null:
-return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumberErrorMsg,_that.isPhoneValid,_that.isPhoneChecking,_that.otpChanceLeft,_that.resendCountdown,_that.isResendingOTP,_that.isOTPChecking,_that.loginStatus,_that.authUser,_that.dateOfBirth,_that.dobErrorMsg,_that.isDobValid,_that.currentStep,_that.isLoading,_that.errorMessage);case _:
+return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumberErrorMsg,_that.isPhoneValid,_that.isPhoneChecking,_that.otpChanceLeft,_that.resendCountdown,_that.isResendingOTP,_that.isOTPChecking,_that.loginStatus,_that.user,_that.dateOfBirth,_that.dobErrorMsg,_that.isDobValid,_that.currentStep,_that.isLoading,_that.errorMessage);case _:
   return null;
 
 }
@@ -229,7 +229,7 @@ return $default(_that.firstName,_that.lastName,_that.phoneNumber,_that.phoneNumb
 
 
 class _AuthState implements AuthState {
-  const _AuthState({this.firstName = '', this.lastName = '', this.phoneNumber = '', this.phoneNumberErrorMsg = '', this.isPhoneValid = true, this.isPhoneChecking = RequestStatus.initial, this.otpChanceLeft = 3, this.resendCountdown = 0, this.isResendingOTP = false, this.isOTPChecking = false, this.loginStatus = RequestStatus.initial, this.authUser, this.dateOfBirth, this.dobErrorMsg = '', this.isDobValid = true, this.currentStep = AuthStep.phone, this.isLoading = false, this.errorMessage});
+  const _AuthState({this.firstName = '', this.lastName = '', this.phoneNumber = '', this.phoneNumberErrorMsg = '', this.isPhoneValid = true, this.isPhoneChecking = RequestStatus.initial, this.otpChanceLeft = 3, this.resendCountdown = 0, this.isResendingOTP = false, this.isOTPChecking = false, this.loginStatus = RequestStatus.initial, this.user, this.dateOfBirth, this.dobErrorMsg = '', this.isDobValid = true, this.currentStep = AuthStep.phone, this.isLoading = false, this.errorMessage});
   
 
 @override@JsonKey() final  String firstName;
@@ -243,7 +243,7 @@ class _AuthState implements AuthState {
 @override@JsonKey() final  bool isResendingOTP;
 @override@JsonKey() final  bool isOTPChecking;
 @override@JsonKey() final  RequestStatus loginStatus;
-@override final  User? authUser;
+@override final  User? user;
 @override final  DateTime? dateOfBirth;
 @override@JsonKey() final  String dobErrorMsg;
 @override@JsonKey() final  bool isDobValid;
@@ -261,18 +261,18 @@ _$AuthStateCopyWith<_AuthState> get copyWith => __$AuthStateCopyWithImpl<_AuthSt
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthState&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.phoneNumberErrorMsg, phoneNumberErrorMsg) || other.phoneNumberErrorMsg == phoneNumberErrorMsg)&&(identical(other.isPhoneValid, isPhoneValid) || other.isPhoneValid == isPhoneValid)&&(identical(other.isPhoneChecking, isPhoneChecking) || other.isPhoneChecking == isPhoneChecking)&&(identical(other.otpChanceLeft, otpChanceLeft) || other.otpChanceLeft == otpChanceLeft)&&(identical(other.resendCountdown, resendCountdown) || other.resendCountdown == resendCountdown)&&(identical(other.isResendingOTP, isResendingOTP) || other.isResendingOTP == isResendingOTP)&&(identical(other.isOTPChecking, isOTPChecking) || other.isOTPChecking == isOTPChecking)&&(identical(other.loginStatus, loginStatus) || other.loginStatus == loginStatus)&&(identical(other.authUser, authUser) || other.authUser == authUser)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.dobErrorMsg, dobErrorMsg) || other.dobErrorMsg == dobErrorMsg)&&(identical(other.isDobValid, isDobValid) || other.isDobValid == isDobValid)&&(identical(other.currentStep, currentStep) || other.currentStep == currentStep)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthState&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.phoneNumberErrorMsg, phoneNumberErrorMsg) || other.phoneNumberErrorMsg == phoneNumberErrorMsg)&&(identical(other.isPhoneValid, isPhoneValid) || other.isPhoneValid == isPhoneValid)&&(identical(other.isPhoneChecking, isPhoneChecking) || other.isPhoneChecking == isPhoneChecking)&&(identical(other.otpChanceLeft, otpChanceLeft) || other.otpChanceLeft == otpChanceLeft)&&(identical(other.resendCountdown, resendCountdown) || other.resendCountdown == resendCountdown)&&(identical(other.isResendingOTP, isResendingOTP) || other.isResendingOTP == isResendingOTP)&&(identical(other.isOTPChecking, isOTPChecking) || other.isOTPChecking == isOTPChecking)&&(identical(other.loginStatus, loginStatus) || other.loginStatus == loginStatus)&&(identical(other.user, user) || other.user == user)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.dobErrorMsg, dobErrorMsg) || other.dobErrorMsg == dobErrorMsg)&&(identical(other.isDobValid, isDobValid) || other.isDobValid == isDobValid)&&(identical(other.currentStep, currentStep) || other.currentStep == currentStep)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,firstName,lastName,phoneNumber,phoneNumberErrorMsg,isPhoneValid,isPhoneChecking,otpChanceLeft,resendCountdown,isResendingOTP,isOTPChecking,loginStatus,authUser,dateOfBirth,dobErrorMsg,isDobValid,currentStep,isLoading,errorMessage);
+    return Object.hash(runtimeType,firstName,lastName,phoneNumber,phoneNumberErrorMsg,isPhoneValid,isPhoneChecking,otpChanceLeft,resendCountdown,isResendingOTP,isOTPChecking,loginStatus,user,dateOfBirth,dobErrorMsg,isDobValid,currentStep,isLoading,errorMessage);
 }
 
 @override
 String toString() {
-    return 'AuthState(firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, phoneNumberErrorMsg: $phoneNumberErrorMsg, isPhoneValid: $isPhoneValid, isPhoneChecking: $isPhoneChecking, otpChanceLeft: $otpChanceLeft, resendCountdown: $resendCountdown, isResendingOTP: $isResendingOTP, isOTPChecking: $isOTPChecking, loginStatus: $loginStatus, authUser: $authUser, dateOfBirth: $dateOfBirth, dobErrorMsg: $dobErrorMsg, isDobValid: $isDobValid, currentStep: $currentStep, isLoading: $isLoading, errorMessage: $errorMessage)';
+    return 'AuthState(firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, phoneNumberErrorMsg: $phoneNumberErrorMsg, isPhoneValid: $isPhoneValid, isPhoneChecking: $isPhoneChecking, otpChanceLeft: $otpChanceLeft, resendCountdown: $resendCountdown, isResendingOTP: $isResendingOTP, isOTPChecking: $isOTPChecking, loginStatus: $loginStatus, user: $user, dateOfBirth: $dateOfBirth, dobErrorMsg: $dobErrorMsg, isDobValid: $isDobValid, currentStep: $currentStep, isLoading: $isLoading, errorMessage: $errorMessage)';
 }
 
 
@@ -283,7 +283,7 @@ abstract mixin class _$AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Re
   factory _$AuthStateCopyWith(_AuthState value, $Res Function(_AuthState) _then) = __$AuthStateCopyWithImpl;
 @override @useResult
 $Res call({
- String firstName, String lastName, String phoneNumber, String phoneNumberErrorMsg, bool isPhoneValid, RequestStatus isPhoneChecking, int otpChanceLeft, int resendCountdown, bool isResendingOTP, bool isOTPChecking, RequestStatus loginStatus, User? authUser, DateTime? dateOfBirth, String dobErrorMsg, bool isDobValid, AuthStep currentStep, bool isLoading, String? errorMessage
+ String firstName, String lastName, String phoneNumber, String phoneNumberErrorMsg, bool isPhoneValid, RequestStatus isPhoneChecking, int otpChanceLeft, int resendCountdown, bool isResendingOTP, bool isOTPChecking, RequestStatus loginStatus, User? user, DateTime? dateOfBirth, String dobErrorMsg, bool isDobValid, AuthStep currentStep, bool isLoading, String? errorMessage
 });
 
 
@@ -300,7 +300,7 @@ class __$AuthStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? firstName = null,Object? lastName = null,Object? phoneNumber = null,Object? phoneNumberErrorMsg = null,Object? isPhoneValid = null,Object? isPhoneChecking = null,Object? otpChanceLeft = null,Object? resendCountdown = null,Object? isResendingOTP = null,Object? isOTPChecking = null,Object? loginStatus = null,Object? authUser = freezed,Object? dateOfBirth = freezed,Object? dobErrorMsg = null,Object? isDobValid = null,Object? currentStep = null,Object? isLoading = null,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? firstName = null,Object? lastName = null,Object? phoneNumber = null,Object? phoneNumberErrorMsg = null,Object? isPhoneValid = null,Object? isPhoneChecking = null,Object? otpChanceLeft = null,Object? resendCountdown = null,Object? isResendingOTP = null,Object? isOTPChecking = null,Object? loginStatus = null,Object? user = freezed,Object? dateOfBirth = freezed,Object? dobErrorMsg = null,Object? isDobValid = null,Object? currentStep = null,Object? isLoading = null,Object? errorMessage = freezed,}) {
   return _then(_AuthState(
 firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
 as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
@@ -313,7 +313,7 @@ as int,resendCountdown: null == resendCountdown ? _self.resendCountdown : resend
 as int,isResendingOTP: null == isResendingOTP ? _self.isResendingOTP : isResendingOTP // ignore: cast_nullable_to_non_nullable
 as bool,isOTPChecking: null == isOTPChecking ? _self.isOTPChecking : isOTPChecking // ignore: cast_nullable_to_non_nullable
 as bool,loginStatus: null == loginStatus ? _self.loginStatus : loginStatus // ignore: cast_nullable_to_non_nullable
-as RequestStatus,authUser: freezed == authUser ? _self.authUser : authUser // ignore: cast_nullable_to_non_nullable
+as RequestStatus,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as DateTime?,dobErrorMsg: null == dobErrorMsg ? _self.dobErrorMsg : dobErrorMsg // ignore: cast_nullable_to_non_nullable
 as String,isDobValid: null == isDobValid ? _self.isDobValid : isDobValid // ignore: cast_nullable_to_non_nullable

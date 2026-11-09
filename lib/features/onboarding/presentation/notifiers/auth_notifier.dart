@@ -67,7 +67,7 @@ class AuthNotifier extends Notifier<AuthState> {
       _logger.i(user.toString());
 
       if (user != null) {
-        state = state.copyWith(authUser: user, isPhoneChecking: .success);
+        state = state.copyWith(user: user, isPhoneChecking: .success);
       } else {
         state = state.copyWith(isPhoneChecking: .success);
       }
@@ -100,7 +100,7 @@ class AuthNotifier extends Notifier<AuthState> {
 
       _logger.i(user.toString());
 
-      state = state.copyWith(authUser: user, loginStatus: .success);
+      state = state.copyWith(user: user, loginStatus: .success);
       onSuccess.call();
     } catch (e) {
       state = state.copyWith(errorMessage: e.toString(), loginStatus: .fail);

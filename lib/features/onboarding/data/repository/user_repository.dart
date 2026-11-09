@@ -7,6 +7,8 @@ abstract interface class UserRepository {
 
   Future<User?> getUser();
 
+  Future<User?> getUserById(int id);
+
   Future<void> updateUser(User user);
 
   Future<void> deleteUser();

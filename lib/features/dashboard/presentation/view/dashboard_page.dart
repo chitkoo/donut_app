@@ -13,7 +13,7 @@ class DashboardPage extends ConsumerStatefulWidget {
 class _DashboardPageState extends ConsumerState<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(authProvider.select((state) => state.authUser));
+    final user = ref.watch(authProvider.select((state) => state.user));
 
     return Scaffold(body: Center(child: Text("Welcome ${user?.fullName}")));
   }
