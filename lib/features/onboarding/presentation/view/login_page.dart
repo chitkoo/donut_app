@@ -1,20 +1,26 @@
-import 'package:donut_app/core/router/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../configs/constants/app_size.dart';
+import '../../../../core/router/app_routes.dart';
 import '../../../../shared/widgets/donut_app_button.dart';
 import '../../../../shared/widgets/donut_app_scaffold.dart';
+import '../../../../shared/widgets/error_text.dart';
 import '../../../../utils/extensions/context_x.dart';
+import '../notifiers/auth_notifier.dart';
 import 'widgets/onboard_back_button.dart';
 import 'widgets/phone_input.dart';
 import 'widgets/terms_and_condition_text.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final phoneController = useTextEditingController();
+
     return DonutAppScaffold(
       body: Column(
         mainAxisAlignment: .spaceBetween,
@@ -31,21 +37,62 @@ class LoginPage extends StatelessWidget {
               veryLargeVerticalSpace,
               Align(
                 alignment: .centerLeft,
-                child: Text(
-                  "Enter your phone number",
-                  style: context.textTheme.headlineLarge?.copyWith(
-                    letterSpacing: 1.5,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 200),
+                  child: Text(
+                    "Enter your phone number",
+                    style: context.textTheme.headlineLarge?.copyWith(
+                      letterSpacing: 1.5,
+                    ),
                   ),
                 ),
               ),
-              PhoneInput(),
+              SizedBox(height: 40),
+              PhoneInput(
+                controller: phoneController,
+                onChanged: (String value) {
+                  ref.read(authProvider.notifier).updatePhoneNumber(value);
+                },
+              ),
+              smallVerticalSpace,
+              Consumer(
+                builder: (context, ref, child) {
+                  final isPhoneValid = ref.watch(
+                    authProvider.select((state) => state.isPhoneValid),
+                  );
+
+                  final errMsg = ref.watch(
+                    authProvider.select((state) => state.phoneNumberErrorMsg),
+                  );
+
+                  if (!isPhoneValid) {
+                    return Align(
+                      alignment: .centerLeft,
+                      child: ErrorText("* $errMsg"),
+                    );
+                  } else {
+                    return noSpace;
+                  }
+                },
+              ),
             ],
           ),
-          DonutAppButton(
-            width: double.infinity,
-            text: "continue",
-            onPressed: () {
-              context.pushNamed(AppRoutes.otp);
+          Consumer(
+            builder: (context, ref, child) {
+              final isPhoneValid = ref.watch(
+                authProvider.select((state) => state.isPhoneValid),
+              );
+
+              return DonutAppButton(
+                enabled: isPhoneValid,
+                width: double.infinity,
+                text: "continue",
+                onPressed: () {
+                  if (ref.read(authProvider.notifier).checkPhoneValid()) {
+                    context.pushNamed(AppRoutes.otp);
+                  }
+                },
+              );
             },
           ),
         ],

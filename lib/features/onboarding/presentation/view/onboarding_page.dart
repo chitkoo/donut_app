@@ -80,7 +80,12 @@ class OnboardingPage extends ConsumerWidget {
                     ),
                     SizedBox(height: 35),
 
-                    DonutAppButton(text: "Let's get started", onPressed: () {}),
+                    DonutAppButton(
+                      text: "Let's get started",
+                      onPressed: () {
+                        context.pushNamed(AppRoutes.login);
+                      },
+                    ),
                     smallVerticalSpace,
                     Text.rich(
                       TextSpan(

@@ -1,12 +1,92 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class UserBirthdayPage extends StatelessWidget {
+import '../../../../configs/constants/app_size.dart';
+import '../../../../core/router/app_routes.dart';
+import '../../../../shared/widgets/donut_app_button.dart';
+import '../../../../shared/widgets/donut_app_scaffold.dart';
+import '../../../../utils/extensions/context_x.dart';
+import '../../../../utils/helpers/helpers.dart';
+import '../notifiers/auth_notifier.dart';
+import 'widgets/date_input.dart';
+import 'widgets/onboard_back_button.dart';
+import 'widgets/terms_and_condition_text.dart';
+
+class UserBirthdayPage extends ConsumerWidget {
   const UserBirthdayPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("birth"),),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dob = ref.watch(authProvider.select((state) => state.dateOfBirth));
+
+    return DonutAppScaffold(
+      body: Column(
+        mainAxisAlignment: .spaceBetween,
+        children: [
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: .spaceBetween,
+                children: [
+                  OnboardBackButton(),
+                  //  CircularProgressIndicator()
+                ],
+              ),
+              veryLargeVerticalSpace,
+              Align(
+                alignment: .centerLeft,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 200),
+                  child: Text(
+                    "What's your date of birth?",
+                    style: context.textTheme.headlineLarge?.copyWith(
+                      letterSpacing: 1.5,
+                    ),
+                    maxLines: 2,
+                  ),
+                ),
+              ),
+              SizedBox(height: 40),
+              DateInput(
+                value: dob != null ? getMonthName(dob.month) : "",
+                onTap: () {
+                  showCustomDatePicker(context, dob, ref);
+                },
+                placeholderText: "Month",
+              ),
+              largeVerticalSpace,
+              DateInput(
+                value: dob != null ? "${dob.day}" : "",
+                onTap: () {
+                  showCustomDatePicker(context, dob, ref);
+                },
+                placeholderText: "Day",
+              ),
+              largeVerticalSpace,
+              DateInput(
+                value: dob != null ? "${dob.year}" : "",
+                onTap: () {
+                  showCustomDatePicker(context, dob, ref);
+                },
+                placeholderText: "Year",
+              ),
+            ],
+          ),
+          DonutAppButton(
+            width: double.infinity,
+            text: "continue",
+            onPressed: () {
+              context.pushNamed(AppRoutes.birthday);
+            },
+          ),
+        ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30),
+        child: TermsAndConditionText(),
+      ),
     );
   }
 }

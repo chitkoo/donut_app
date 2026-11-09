@@ -10,6 +10,7 @@ abstract final class AppColors {
   static const text = Colors.black;
   static const white = Colors.white;
   static const gray = Colors.grey;
+  static const error = Colors.red;
 }
 
 abstract final class AppTheme {
