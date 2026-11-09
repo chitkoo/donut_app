@@ -82,6 +82,12 @@ To run on a specific device:
 flutter run -d <device-id>
 ```
 
+OTP code to use
+
+``` bash
+123456
+```
+
 ## Build commands
 
 ### Android
