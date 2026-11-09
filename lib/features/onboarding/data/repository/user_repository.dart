@@ -1,7 +1,9 @@
 import '../../domain/entities/user.dart';
 
 abstract interface class UserRepository {
-  Future<int> createUser(User user);
+  Future<User> createUser(User user);
+
+  Future<User?> getUserByPhoneNumber(String phoneNumber);
 
   Future<User?> getUser();
 

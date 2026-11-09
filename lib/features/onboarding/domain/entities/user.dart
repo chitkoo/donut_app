@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class User {
   const User({
     this.id,
@@ -14,4 +15,9 @@ class User {
   final String phoneNumber;
   final DateTime dateOfBirth;
   final DateTime? createdAt;
+
+  @override
+  String toString() {
+    return 'User(id: $id, firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, dateOfBirth: $dateOfBirth, createdAt: $createdAt)';
+  }
 }

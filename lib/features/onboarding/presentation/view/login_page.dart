@@ -8,6 +8,7 @@ import '../../../../core/router/app_routes.dart';
 import '../../../../shared/widgets/donut_app_button.dart';
 import '../../../../shared/widgets/donut_app_scaffold.dart';
 import '../../../../shared/widgets/error_text.dart';
+import '../../../../utils/enums/status_enum.dart';
 import '../../../../utils/extensions/context_x.dart';
 import '../notifiers/auth_notifier.dart';
 import 'widgets/onboard_back_button.dart';
@@ -83,13 +84,26 @@ class LoginPage extends HookConsumerWidget {
                 authProvider.select((state) => state.isPhoneValid),
               );
 
+              final isLoading =
+                  ref.watch(
+                    authProvider.select((state) => state.isPhoneChecking),
+                  ) ==
+                  RequestStatus.loading;
+
+              ref.listen(authProvider, (prev, next) {
+                if (next.isPhoneChecking == RequestStatus.success) {
+                  context.pushNamed(AppRoutes.otp);
+                }
+              });
+
               return DonutAppButton(
+                isLoading: isLoading,
                 enabled: isPhoneValid,
                 width: double.infinity,
                 text: "continue",
                 onPressed: () {
                   if (ref.read(authProvider.notifier).checkPhoneValid()) {
-                    context.pushNamed(AppRoutes.otp);
+                    ref.read(authProvider.notifier).continueWithPhoneNumber();
                   }
                 },
               );

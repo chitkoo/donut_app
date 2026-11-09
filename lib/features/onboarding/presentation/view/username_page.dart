@@ -70,7 +70,7 @@ class UsernamePage extends HookConsumerWidget {
                 controller: lastNameController,
                 placeholderText: "Last Name (Optional)",
                 onChanged: (String value) {
-                  ref.read(authProvider.notifier).onFirstNameChanged(value);
+                  ref.read(authProvider.notifier).onLastNameChanged(value);
                 },
               ),
             ],

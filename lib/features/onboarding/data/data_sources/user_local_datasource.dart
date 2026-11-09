@@ -1,10 +1,14 @@
 import 'package:drift/drift.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../core/database/app_database.dart';
+import '../../../../core/database/database_provider.dart';
 import '../../domain/entities/user.dart';
 
 abstract interface class UserLocalDataSource {
-  Future<int> createUser(User user);
+  Future<UserRow?> createUser(User user);
+
+  Future<UserRow?> getUserByPhoneNumber(String phoneNumber);
 
   Future<UserRow?> getUser();
 
@@ -19,15 +23,38 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   final AppDatabase _database;
 
   @override
-  Future<int> createUser(User user) {
-    return _database.into(_database.users).insert(
-      UsersCompanion.insert(
-        firstName: user.firstName,
-        lastName: user.lastName,
-        phoneNumber: user.phoneNumber,
-        dateOfBirth: user.dateOfBirth,
-      ),
-    );
+  Future<UserRow?> getUserByPhoneNumber(String phoneNumber) {
+    return (_database.select(_database.users)
+          ..where((table) => table.phoneNumber.equals(phoneNumber)))
+        .getSingleOrNull();
+  }
+
+  @override
+  Future<UserRow?> createUser(User user) async {
+    // return _database
+    //     .into(_database.users)
+    //     .insert(
+    //       UsersCompanion.insert(
+    //         firstName: user.firstName,
+    //         lastName: user.lastName,
+    //         phoneNumber: user.phoneNumber,
+    //         dateOfBirth: user.dateOfBirth,
+    //       ),
+    //     );
+    final id = await _database
+        .into(_database.users)
+        .insert(
+          UsersCompanion.insert(
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phoneNumber: user.phoneNumber,
+            dateOfBirth: user.dateOfBirth,
+          ),
+        );
+
+    return (_database.select(
+      _database.users,
+    )..where((table) => table.id.equals(id))).getSingleOrNull();
   }
 
   @override
@@ -41,9 +68,9 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
       throw ArgumentError('User ID is required for update');
     }
 
-    await (_database.update(_database.users)
-          ..where((table) => table.id.equals(user.id!)))
-        .write(
+    await (_database.update(
+      _database.users,
+    )..where((table) => table.id.equals(user.id!))).write(
       UsersCompanion(
         firstName: Value(user.firstName),
         lastName: Value(user.lastName),
@@ -58,3 +85,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     await _database.delete(_database.users).go();
   }
 }
+
+final userLocalDataSourceProvider = Provider<UserLocalDataSource>((ref) {
+  return UserLocalDataSourceImpl(ref.watch(appDatabaseProvider));
+});

@@ -1,9 +1,14 @@
 import 'dart:async';
 
-import 'package:donut_app/configs/constants/app_default_values.dart';
-import 'package:donut_app/features/onboarding/domain/validators/phonenumber_validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
+import '../../../../configs/constants/app_default_values.dart';
+import '../../../../utils/app_logger.dart';
+import '../../data/repository/user_repository.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/repository/user_repository_impl.dart';
+import '../../domain/validators/phonenumber_validator.dart';
 import '../states/auth_state.dart';
 
 final authProvider = NotifierProvider.autoDispose<AuthNotifier, AuthState>(
@@ -13,9 +18,15 @@ final authProvider = NotifierProvider.autoDispose<AuthNotifier, AuthState>(
 class AuthNotifier extends Notifier<AuthState> {
   Timer? _otpTimer;
 
+  late final UserRepository _userRepository;
+  late final Logger _logger;
+
   @override
   AuthState build() {
     ref.onDispose(() => _otpTimer?.cancel());
+
+    _userRepository = ref.read(userRepositoryProvider);
+    _logger = ref.read(loggerProvider);
 
     return const AuthState();
   }
@@ -37,6 +48,55 @@ class AuthNotifier extends Notifier<AuthState> {
 
   bool checkPhoneValid() {
     return state.phoneNumber.isNotEmpty && state.isPhoneValid;
+  }
+
+  /// [Check Phone Number]
+  Future<void> continueWithPhoneNumber() async {
+    state = state.copyWith(isPhoneChecking: .loading);
+
+    try {
+      final user = await _userRepository.getUserByPhoneNumber(
+        state.phoneNumber,
+      );
+
+      _logger.i(user.toString());
+
+      if (user != null) {
+        state = state.copyWith(authUser: user, isPhoneChecking: .success);
+      } else {
+        state = state.copyWith(isPhoneChecking: .success);
+      }
+    } catch (e) {
+      state = state.copyWith(errorMessage: e.toString());
+    } finally {
+      state = state.copyWith(isPhoneChecking: .initial);
+    }
+  }
+
+  /// [Login]
+  Future<void> createUserAndLogin() async {
+    state = state.copyWith(loginStatus: .loading);
+
+    try {
+      await Future.delayed(Duration(milliseconds: 1500));
+
+      final user = await _userRepository.createUser(
+        User(
+          firstName: state.firstName,
+          lastName: state.lastName,
+          phoneNumber: state.phoneNumber,
+          dateOfBirth: state.dateOfBirth!,
+        ),
+      );
+
+      _logger.i(user.toString());
+
+      state = state.copyWith(authUser: user, loginStatus: .success);
+    } catch (e) {
+      state = state.copyWith(errorMessage: e.toString(), loginStatus: .fail);
+    } finally {
+      state = state.copyWith(loginStatus: .initial);
+    }
   }
 
   Future<bool> checkOTP(String otp) async {

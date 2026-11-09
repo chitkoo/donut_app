@@ -1,3 +1,4 @@
+import 'package:donut_app/utils/enums/status_enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -74,11 +75,29 @@ class UserBirthdayPage extends ConsumerWidget {
               ),
             ],
           ),
-          DonutAppButton(
-            width: double.infinity,
-            text: "continue",
-            onPressed: () {
-              context.pushNamed(AppRoutes.birthday);
+          Consumer(
+            builder: (context, ref, child) {
+              final isLoading =
+                  ref.watch(
+                    authProvider.select((state) => state.loginStatus),
+                  ) ==
+                  RequestStatus.loading;
+
+              ref.listen(authProvider, (prev, next) {
+                if (next.loginStatus == RequestStatus.success) {
+                  context.goNamed(AppRoutes.dashboard);
+                }
+              });
+
+              return DonutAppButton(
+                isLoading: isLoading,
+                width: double.infinity,
+                text: "continue",
+                onPressed: () {
+                  ref.read(authProvider.notifier).createUserAndLogin();
+                  // context.pushNamed(AppRoutes.birthday);
+                },
+              );
             },
           ),
         ],

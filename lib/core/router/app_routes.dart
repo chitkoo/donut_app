@@ -7,6 +7,7 @@ abstract final class AppRoutes {
   static const username = '/username';
   static const birthday = '/birthday';
 
+  static const dashboard = '/dashboard';
   static const home = '/home';
   static const login = '/login';
   static const products = '/products';

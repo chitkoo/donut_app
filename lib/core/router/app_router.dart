@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:go_transitions/go_transitions.dart';
 
+import '../../features/dashboard/presentation/view/dashboard_page.dart';
 import '../../features/onboarding/presentation/view/login_page.dart';
 import '../../features/onboarding/presentation/view/onboarding_page.dart';
 import '../../features/onboarding/presentation/view/otp_page.dart';
@@ -45,6 +46,12 @@ final GoRouter appRouter = GoRouter(
       name: AppRoutes.birthday,
       path: AppRoutes.birthday,
       builder: (context, state) => const UserBirthdayPage(),
+      pageBuilder: GoTransitions.slide.toLeft.withFade.call,
+    ),
+    GoRoute(
+      name: AppRoutes.dashboard,
+      path: AppRoutes.dashboard,
+      builder: (context, state) => const DashboardPage(),
       pageBuilder: GoTransitions.slide.toLeft.withFade.call,
     ),
   ],
