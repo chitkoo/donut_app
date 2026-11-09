@@ -88,7 +88,7 @@ class UsernamePage extends HookConsumerWidget {
               authProvider.select((state) => state.firstName.trim().isNotEmpty),
             ),
             onPressed: () {
-              context.pushNamed(AppRoutes.birthday);
+              context.pushNamed(AppRouteNames.birthday);
               ref.read(authProvider.notifier).updateAuthStep(AuthStep.birthday);
             },
           ),

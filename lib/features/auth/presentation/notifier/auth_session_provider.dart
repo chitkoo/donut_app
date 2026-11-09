@@ -1,10 +1,10 @@
-import 'package:donut_app/features/auth/domain/entities/auth_session.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../core/storage/secure_storage_provider.dart';
 import '../../../onboarding/data/repository/user_repository.dart';
 import '../../../onboarding/domain/repository/user_repository_impl.dart';
+import '../../domain/entities/auth_session.dart';
 
 final authSessionProvider =
     AsyncNotifierProvider<AuthSessionNotifier, AuthSession?>(
@@ -44,7 +44,7 @@ class AuthSessionNotifier extends AsyncNotifier<AuthSession?> {
       return null;
     }
 
-    return AuthSession(userId: user.id ?? 0);
+    return AuthSession(userId: user.id ?? 0, user: user);
   }
 
   Future<void> login(int userId) async {
@@ -56,7 +56,7 @@ class AuthSessionNotifier extends AsyncNotifier<AuthSession?> {
 
     await _storage.write(key: _userIdKey, value: user.id.toString());
 
-    state = AsyncData(AuthSession(userId: user.id ?? 0));
+    state = AsyncData(AuthSession(userId: user.id ?? 0, user: user));
   }
 
   Future<void> logout() async {

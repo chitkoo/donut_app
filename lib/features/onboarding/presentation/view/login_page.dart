@@ -113,7 +113,8 @@ class LoginPage extends HookConsumerWidget {
                         .read(authProvider.notifier)
                         .continueWithPhoneNumber(
                           onSuccess: () {
-                            context.pushNamed(AppRoutes.otp);
+                            // context.pushNamed(AppRoutes.otp);
+                            context.pushNamed(AppRouteNames.otp);
                           },
                         );
                   }

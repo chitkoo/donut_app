@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../core/database/app_database.dart';
@@ -12,11 +11,11 @@ abstract interface class UserLocalDataSource {
 
   Future<UserRow?> queryUserById(int id);
 
-  Future<UserRow?> getUser();
+  // Future<UserRow?> getUser();
 
-  Future<void> updateUser(User user);
+  // Future<void> updateUser(User user);
 
-  Future<void> deleteUser();
+  // Future<void> deleteUser();
 }
 
 class UserLocalDataSourceImpl implements UserLocalDataSource {
@@ -66,33 +65,33 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     )..where((table) => table.id.equals(id))).getSingleOrNull();
   }
 
-  @override
-  Future<UserRow?> getUser() {
-    return _database.select(_database.users).getSingleOrNull();
-  }
+  // @override
+  // Future<UserRow?> getUser() {
+  //   return _database.select(_database.users).getSingleOrNull();
+  // }
 
-  @override
-  Future<void> updateUser(User user) async {
-    if (user.id == null) {
-      throw ArgumentError('User ID is required for update');
-    }
+  // @override
+  // Future<void> updateUser(User user) async {
+  //   if (user.id == null) {
+  //     throw ArgumentError('User ID is required for update');
+  //   }
 
-    await (_database.update(
-      _database.users,
-    )..where((table) => table.id.equals(user.id!))).write(
-      UsersCompanion(
-        firstName: Value(user.firstName),
-        lastName: Value(user.lastName),
-        phoneNumber: Value(user.phoneNumber),
-        dateOfBirth: Value(user.dateOfBirth),
-      ),
-    );
-  }
+  //   await (_database.update(
+  //     _database.users,
+  //   )..where((table) => table.id.equals(user.id!))).write(
+  //     UsersCompanion(
+  //       firstName: Value(user.firstName),
+  //       lastName: Value(user.lastName),
+  //       phoneNumber: Value(user.phoneNumber),
+  //       dateOfBirth: Value(user.dateOfBirth),
+  //     ),
+  //   );
+  // }
 
-  @override
-  Future<void> deleteUser() async {
-    await _database.delete(_database.users).go();
-  }
+  // @override
+  // Future<void> deleteUser() async {
+  //   await _database.delete(_database.users).go();
+  // }
 }
 
 final userLocalDataSourceProvider = Provider<UserLocalDataSource>((ref) {

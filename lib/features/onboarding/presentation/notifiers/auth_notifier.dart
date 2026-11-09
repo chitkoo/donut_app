@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:donut_app/utils/enums/auth_step.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../configs/constants/app_default_values.dart';
 import '../../../../utils/app_logger.dart';
+import '../../../../utils/enums/auth_step.dart';
+import '../../../auth/presentation/notifier/auth_session_provider.dart';
 import '../../data/repository/user_repository.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repository/user_repository_impl.dart';
@@ -81,9 +82,11 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   /// [Login]
-  Future<void> createUserAndLogin({
-    required VoidCallback onSuccess,
-  }) async {
+  Future<void> createUserAndLogin(
+    // {required VoidCallback onSuccess}
+  ) async {
+    if (state.loginStatus == .loading) return;
+
     state = state.copyWith(loginStatus: .loading);
 
     try {
@@ -100,8 +103,11 @@ class AuthNotifier extends Notifier<AuthState> {
 
       _logger.i(user.toString());
 
+      await ref.read(authSessionProvider.notifier).login(user.id ?? 0);
+
       state = state.copyWith(user: user, loginStatus: .success);
-      onSuccess.call();
+
+      // onSuccess.call();
     } catch (e) {
       state = state.copyWith(errorMessage: e.toString(), loginStatus: .fail);
     } finally {

@@ -83,7 +83,8 @@ class OnboardingPage extends ConsumerWidget {
                     DonutAppButton(
                       text: "Let's get started",
                       onPressed: () {
-                        context.pushNamed(AppRoutes.login);
+                        // context.pushNamed(AppRoutes.login);
+                        context.pushNamed(AppRouteNames.login);
                       },
                     ),
                     smallVerticalSpace,
@@ -98,7 +99,8 @@ class OnboardingPage extends ConsumerWidget {
                             text: "Log In",
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                context.pushNamed(AppRoutes.login);
+                                // context.pushNamed(AppRoutes.login);
+                                context.pushNamed(AppRouteNames.login);
                               },
                             style: context.textTheme.bodyLarge?.copyWith(
                               color: AppColors.progress,

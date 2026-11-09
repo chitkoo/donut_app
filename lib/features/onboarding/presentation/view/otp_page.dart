@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:donut_app/features/auth/presentation/notifier/auth_session_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -148,9 +149,13 @@ class OtpPage extends HookConsumerWidget {
                       final user = ref.read(authProvider).user;
 
                       if (user != null) {
-                        context.goNamed(AppRoutes.dashboard);
+                        // context.goNamed(AppRoutes.dashboard);
+                        await ref
+                            .read(authSessionProvider.notifier)
+                            .login(user.id ?? 0);
                       } else {
-                        context.pushNamed(AppRoutes.username);
+                        // context.pushNamed(AppRoutes.username);
+                        context.pushNamed(AppRouteNames.username);
                         ref
                             .read(authProvider.notifier)
                             .updateAuthStep(AuthStep.profile);

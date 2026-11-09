@@ -64,29 +64,29 @@ class UserRepositoryImpl implements UserRepository {
     );
   }
 
-  @override
-  Future<User?> getUser() async {
-    final row = await _localDataSource.getUser();
+  // @override
+  // Future<User?> getUser() async {
+  //   final row = await _localDataSource.getUser();
 
-    if (row == null) return null;
+  //   if (row == null) return null;
 
-    return User(
-      id: row.id,
-      firstName: row.firstName,
-      lastName: row.lastName,
-      phoneNumber: row.phoneNumber,
-      dateOfBirth: row.dateOfBirth,
-      createdAt: row.createdAt,
-    );
-  }
+  //   return User(
+  //     id: row.id,
+  //     firstName: row.firstName,
+  //     lastName: row.lastName,
+  //     phoneNumber: row.phoneNumber,
+  //     dateOfBirth: row.dateOfBirth,
+  //     createdAt: row.createdAt,
+  //   );
+  // }
 
-  @override
-  Future<void> updateUser(User user) {
-    return _localDataSource.updateUser(user);
-  }
+  // @override
+  // Future<void> updateUser(User user) {
+  //   return _localDataSource.updateUser(user);
+  // }
 
-  @override
-  Future<void> deleteUser() {
-    return _localDataSource.deleteUser();
-  }
+  // @override
+  // Future<void> deleteUser() {
+  //   return _localDataSource.deleteUser();
+  // }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../onboarding/presentation/notifiers/auth_notifier.dart';
+import '../../../auth/presentation/notifier/auth_session_provider.dart';
 
 class DashboardPage extends ConsumerStatefulWidget {
   const DashboardPage({super.key});
@@ -13,7 +13,10 @@ class DashboardPage extends ConsumerStatefulWidget {
 class _DashboardPageState extends ConsumerState<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(authProvider.select((state) => state.user));
+    // final user = ref.watch(authSessionProvider.select((state) => state));
+     final session = ref.watch(authSessionProvider);
+
+  final user = session.asData?.value?.user;
 
     return Scaffold(body: Center(child: Text("Welcome ${user?.fullName}")));
   }

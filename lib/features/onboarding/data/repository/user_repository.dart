@@ -5,11 +5,11 @@ abstract interface class UserRepository {
 
   Future<User?> getUserByPhoneNumber(String phoneNumber);
 
-  Future<User?> getUser();
-
   Future<User?> getUserById(int id);
 
-  Future<void> updateUser(User user);
+  // Future<User?> getUser();
 
-  Future<void> deleteUser();
+  // Future<void> updateUser(User user);
+
+  // Future<void> deleteUser();
 }

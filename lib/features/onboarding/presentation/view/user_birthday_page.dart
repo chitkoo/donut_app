@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../configs/constants/app_size.dart';
-import '../../../../core/router/app_routes.dart';
 import '../../../../shared/widgets/donut_app_button.dart';
 import '../../../../shared/widgets/donut_app_scaffold.dart';
 import '../../../../shared/widgets/error_text.dart';
@@ -118,9 +116,9 @@ class UserBirthdayPage extends ConsumerWidget {
                     ref
                         .read(authProvider.notifier)
                         .createUserAndLogin(
-                          onSuccess: () {
-                            context.goNamed(AppRoutes.dashboard);
-                          },
+                          // onSuccess: () {
+                          //   context.goNamed(AppRoutes.dashboard);
+                          // },
                         );
                   }
                 },
